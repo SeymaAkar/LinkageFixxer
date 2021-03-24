@@ -5,8 +5,13 @@
     <description><![CDATA[HalkBankBuild Descriptor
 ]]></description>
     <callLink>
+      <remoteCall pgmName="ibki*" parmForm="COMMDATA" luwControl="CLIENT" />
       <remoteCall pgmName="ibki*" parmForm="COMMDATA" luwControl="SERVER" />
       <remoteCall pgmName="ibki*" parmForm="COMMDATA" luwControl="SERVER" />
+      <remoteCall pgmName="RMQDGT" parmForm="COMMDATA" luwControl="CLIENT" />
+      <remoteCall pgmName="RMQ*" parmForm="COMMDATA" luwControl="CLIENT" />
+      <remoteCall pgmName="RMQPUT" parmForm="COMMDATA" luwControl="CLIENT" />
+      <remoteCall pgmName="RMQGET" parmForm="COMMDATA" luwControl="CLIENT" />
       <remoteCall pgmName="ibki*" parmForm="COMMDATA" luwControl="CLIENT" />
       <localCall linkType="CICSLINK" parmForm="COMMDATA" pgmName="RMQDGT5" pgmType="EXTERNALLYDEFINED" />
       <localCall linkType="STATIC" parmForm="COMMDATA" pgmName="RMQDGT5" pgmType="EXTERNALLYDEFINED" />

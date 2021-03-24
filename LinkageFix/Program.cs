@@ -12,11 +12,11 @@ namespace LinkageFix
 {
     class Program
     {
-        static string eglLinkagePath = @"C:\Users\grawgraw\source\repos\LinkageFix\LinkageFix\data\eglLinkage.txt";
-        static string gui2PrdPath = @"C:\Users\grawgraw\source\repos\LinkageFix\LinkageFix\data\gui2prd.txt";
-        static string mvs2PrdPath = @"C:\Users\grawgraw\source\repos\LinkageFix\LinkageFix\data\mvs2prd.txt";
-        static string tst2ProdPath = @"C:\Users\grawgraw\source\repos\LinkageFix\LinkageFix\data\tst2prod.txt";
-        static string webEglLinkage = @"C:\Users\grawgraw\source\repos\LinkageFix\LinkageFix\data\webegllinkage.txt";
+        static string eglLinkagePath = @"E:\GITREPO\LinkageFix\LinkageFix\data\eglLinkage.txt";
+        static string gui2PrdPath = @"E:\GITREPO\LinkageFix\LinkageFix\data\gui2prd.txt";
+        static string mvs2PrdPath = @"E:\GITREPO\LinkageFix\LinkageFix\data\mvs2prd.txt";
+        static string tst2ProdPath = @"E:\GITREPO\LinkageFix\LinkageFix\data\tst2prod.txt";
+        static string webEglLinkage = @"E:\GITREPO\LinkageFix\LinkageFix\data\webegllinkage.txt";
 
         static int lineNumber = 0;
         static string line;
@@ -72,62 +72,70 @@ namespace LinkageFix
             lineList = FileToList(eglLinkagePath);
             for (lineNumber = 0; lineNumber < lineList.Count; lineNumber++)
             {
+                pgmName = "";
+                luwControl = "";
+                linkType = "";
+
                 if (lineList[lineNumber].Contains("PGMNAME"))
                 {
                     pgmName = lineList[lineNumber].Split(new string[] { "PGMNAME=\"" }, StringSplitOptions.None)[1].Split('\"')[0].Trim();
-                    if (lineList[lineNumber].Contains("REMOTECALL"))
+
+                    if (lineList[lineNumber].Contains("LUWCONTROL"))
                     {
                         luwControl = lineList[lineNumber].Split(new string[] { "LUWCONTROL=\"" }, StringSplitOptions.None)[1].Split('\"')[0].Trim();
-                        for (int j = lineNumber + 1; j < lineList.Count; j++)
-                        {
-                            if (lineList[lineNumber].Contains("PGMNAME"))
-                            {
-                                _pgmName = lineList[j].Split(new string[] { "PGMNAME=\"" }, StringSplitOptions.None)[1].Split('\"')[0].Trim();
-                                if (lineList[j].Contains("REMOTECALL"))
-                                {
-                                    _luwControl = lineList[j].Split(new string[] { "LUWCONTROL=\"" }, StringSplitOptions.None)[1].Split('\"')[0].Trim();
-                                }
-                                //pgmName = RMQ*  , pgmName=RMQDGT
-                                if ((_pgmName == pgmName) && (_luwControl == luwControl))
-                                {
-                                    lineList.RemoveAt(j);
-                                }
-                                else if (pgmName.Contains("*"))
-                                {
-                                    if (_pgmName.Substring(0).Contains(pgmName.Split('*')[0]))
-                                    {
-
-                                    }
-
-
-                                }
-                            }
-                        }
                     }
-                    else if (lineList[lineNumber].Contains("LOCALCALL"))
+                    if (lineList[lineNumber].Contains("LINKTYPE"))
                     {
                         linkType = lineList[lineNumber].Split(new string[] { "LINKTYPE=\"" }, StringSplitOptions.None)[1].Split('\"')[0].Trim();
-                        for (int j = lineNumber + 1; j < lineList.Count; j++)
+                    }
+
+                    for (int j = lineNumber + 1; j < lineList.Count; j++)
+                    {
+                        _pgmName = "";
+                        _luwControl = "";
+                        _linkType = "";
+                        if (lineList[j].Contains("PGMNAME"))
                         {
                             _pgmName = lineList[j].Split(new string[] { "PGMNAME=\"" }, StringSplitOptions.None)[1].Split('\"')[0].Trim();
-                            if (lineList[j].Contains("LOCALCALL"))
+                            if (lineList[j].Contains("LUWCONTROL"))
+                            {
+                                _luwControl = lineList[j].Split(new string[] { "LUWCONTROL=\"" }, StringSplitOptions.None)[1].Split('\"')[0].Trim();
+                            }
+                            if (lineList[j].Contains("LINKTYPE"))
                             {
                                 _linkType = lineList[j].Split(new string[] { "LINKTYPE=\"" }, StringSplitOptions.None)[1].Split('\"')[0].Trim();
                             }
-                            if ((_pgmName == pgmName) && (_linkType == linkType))
+
+                            // onceki satirdaki pgmname'in yildiza kadar olan kismi sonraki satirdaki pgmName'in ilk karakterinden itibaren iceriliyorsa, iceren satir silinir
+                            // 1.satir pgmName= RMQ*   2.satir _pmgName= RMQDGT , RMQ*
+                            if (_pgmName.Substring(0).Contains(pgmName.Split('*')[0]))
                             {
-                                lineList.RemoveAt(j);
-                            }
+                                if ((_pgmName != pgmName))
+                                {
+                                    lineList.RemoveAt(j);
+                                }
+                                else if ((_luwControl == luwControl))
+                                {
+                                    lineList.RemoveAt(j);
+                                }
+                                else if ((_pgmName == pgmName) && !string.IsNullOrEmpty(linkType) && !string.IsNullOrEmpty(_linkType) && (linkType == _linkType))
+                                {
+                                    lineList.RemoveAt(j);
+                                }
+                            }               
                         }
                     }
                 }
             }
 
-
-
-
         }
-
     }
+
+
+
+
 }
+
+
+
 
