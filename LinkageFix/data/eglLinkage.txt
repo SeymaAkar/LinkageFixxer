@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE EGL PUBLIC "-//IBM Corporation, Inc.//DTD EGL Build Parts 6.0//EN" ""[]>
+<EGL>
+  <LinkageOptions name="LinkagePOC">
+    <description><![CDATA[HalkBankBuild Descriptor
+]]></description>
+    <callLink>
+      <remoteCall pgmName="ibki*" parmForm="COMMDATA" luwControl="SERVER" />
+      <remoteCall pgmName="ibki*" parmForm="COMMDATA" luwControl="SERVER" />
+      <remoteCall pgmName="ibki*" parmForm="COMMDATA" luwControl="CLIENT" />
+      <localCall linkType="CICSLINK" parmForm="COMMDATA" pgmName="RMQDGT5" pgmType="EXTERNALLYDEFINED" />
+      <localCall linkType="STATIC" parmForm="COMMDATA" pgmName="RMQDGT5" pgmType="EXTERNALLYDEFINED" />
+      <localCall linkType="CICSLINK" parmForm="COMMDATA" pgmName="RMQDGT5" pgmType="EXTERNALLYDEFINED" />
+      <remoteCall pgmName="ROTA*" parmForm="COMMDATA" luwControl="SERVER" />
+      <localCall linkType="CICSLINK" parmForm="COMMDATA" pgmName="AFTGH*" pgmType="EXTERNALLYDEFINED" />
+      <remoteCall pgmName="AFTGV*" parmForm="COMMDATA" luwControl="SERVER" />
+      <localCall linkType="CICSLINK" parmForm="COMMDATA" pgmName="AFTIH*" pgmType="EXTERNALLYDEFINED" />
+      <remoteCall pgmName="AFTIV*" parmForm="COMMDATA" luwControl="SERVER" />
+      
+      <localCall linkType="CICSLINK" parmForm="COMMDATA" pgmName="TMRTTC*" pgmType="EXTERNALLYDEFINED" />
+      <localCall linkType="CICSLINK" parmForm="COMMDATA" pgmName="AFTGTC*" pgmType="EXTERNALLYDEFINED" />
+      <localCall linkType="CICSLINK" parmForm="COMMDATA" pgmName="AFTITC*" pgmType="EXTERNALLYDEFINED" />
+      <localCall linkType="CICSLINK" parmForm="COMMDATA" pgmName="IBANH*" pgmType="EXTERNALLYDEFINED" />
+    </callLink>
+  </LinkageOptions>
+  <LinkageOptions name="LinkageBatch">
+    <description><![CDATA[HalkBankBuild Descriptor]]></description>
+    <callLink>
+      <localCall pgmName="MQ*" linkType="STATIC" parmForm="OSLINK" />
+      <localCall pgmName="CSQ*" linkType="STATIC" parmForm="OSLINK" />
+    </callLink>
+  </LinkageOptions>
+  <BuildDescriptor bind="testBind" buildPlan="NO" checkNumericOverflow="NO" checkType="NONE" cicsEntries="NONE" clientCodeSet="IBM-1254" commentLevel="1" data="24" destHost="10.45.100.170" destPort="1234" enableJavaWrapperGen="YES" fillWithNulls="YES" genDataTables="YES" genDirectory="c:\Genout" genFormGroup="YES" genHelpFormGroup="YES" genProperties="GLOBAL" J2EE="NO" leftAlign="YES" linkage="LinkagePOC" math="COBOL" name="CICS" prep="YES" projectID="TYSP.PD0.EGL" serverCodeSet="IBM-1026" setFormItemFull="NO" sysCodes="YES" system="ZOSCICS" targetNLS="ENU" vagCompatibility="YES" validateMixedItems="NO" validateOnlyIfModified="YES" validateSQLStatements="NO" destUserID="VGGEN" destPassword="crypto:37020dfba2ca0fff601f30ab6d365853">
+    <symbolicParameter name="CCUEXTC">
+      <symbolicValue><![CDATA[CCUOUT]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="MQHLQ">
+      <symbolicValue><![CDATA[TMQM]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="HBQUALIF">
+      <symbolicValue><![CDATA[AKTAR]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="DB2HLQ">
+      <symbolicValue><![CDATA[TDSN]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="CCUEXTP">
+      <symbolicValue><![CDATA[CCUOUT]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="CCUEXTT">
+      <symbolicValue><![CDATA[CCUOUT]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="CCUEXTL">
+      <symbolicValue><![CDATA[CCUOUT]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="CCUEXTB">
+      <symbolicValue><![CDATA[CCUOUT]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="HBDB">
+      <symbolicValue><![CDATA[DBT0]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="CCUEXTN">
+      <symbolicValue><![CDATA[CCUOUT]]></symbolicValue>
+    </symbolicParameter>
+  </BuildDescriptor>
+  <BuildDescriptor buildPlan="NO" checkNumericOverflow="NO" checkType="NONE" cicsEntries="NONE" clientCodeSet="IBM-1254" commentLevel="1" data="31" destHost="tx42" destPort="2234" destUserID="GENTUSR" enableJavaWrapperGen="YES" fillWithNulls="YES" genDataTables="YES" genDirectory="c:\Genout" genFormGroup="YES" genHelpFormGroup="YES" genProperties="GLOBAL" J2EE="NO" leftAlign="YES" linkage="LinkagePOC" math="COBOL" name="URBAN_CICS" prep="YES" projectID="TYSP.PD0.EGL" serverCodeSet="IBM-1026" setFormItemFull="NO" sysCodes="YES" system="ZOSCICS" targetNLS="ENU" vagCompatibility="YES" validateMixedItems="NO" validateOnlyIfModified="YES" validateSQLStatements="NO" destPassword="crypto:53b62795ddcc619f601f30ab6d365853" decimalSymbol="," separatorSymbol="." checkIndices="NO">
+    <symbolicParameter name="CCUEXTC">
+      <symbolicValue><![CDATA[CCUOUT]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="SYSID">
+      <symbolicValue><![CDATA[T]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="CCUEXTP">
+      <symbolicValue><![CDATA[CCUOUT]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="DB2HLQ">
+      <symbolicValue><![CDATA[TDSN]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="CCUEXTT">
+      <symbolicValue><![CDATA[CCUOUT]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="OFFSET">
+      <symbolicValue><![CDATA[OFFSET]]></symbolicValue>
+    </symbolicParameter>
+  </BuildDescriptor>
+  <BuildDescriptor buildPlan="YES" checkNumericOverflow="NO" checkType="NONE" clientCodeSet="IBM-1254" commentLevel="1" decimalSymbol="," destHost="tx42" destPassword="crypto:53b62795ddcc619f601f30ab6d365853" destPort="2234" destUserID="GENTUSR" fillWithNulls="NO" genDataTables="YES" genDirectory="c:\Genout" genFormGroup="YES" genHelpFormGroup="YES" genRunFile="NO" J2EE="NO" leftAlign="NO" linkage="LinkageBatch" math="COBOL" name="URBAN_BATCH" prep="YES" projectID="TYSP.PD0.EGL" resourceAssociations="MVSBatch" separatorSymbol="." serverCodeSet="IBM-1026" setFormItemFull="NO" sysCodes="YES" system="ZOSBATCH" targetNLS="ENU" vagCompatibility="YES" validateMixedItems="NO" validateOnlyIfModified="NO" validateSQLStatements="NO">
+    <symbolicParameter name="CCUEXTC">
+      <symbolicValue><![CDATA[CCUOUT]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="SYSID">
+      <symbolicValue><![CDATA[T]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="CCUEXTP">
+      <symbolicValue><![CDATA[CCUOUT]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="CCUEXTT">
+      <symbolicValue><![CDATA[CCUOUT]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="DB2HLQ">
+      <symbolicValue><![CDATA[TDSN]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="OFFSET">
+      <symbolicValue><![CDATA[OFFSET]]></symbolicValue>
+    </symbolicParameter>
+  </BuildDescriptor>
+  <ResourceAssociations name="MVSBatch">
+    <association fileName="TCMGECI">
+      <zosbatch>
+        <vsamrs />
+      </zosbatch>
+    </association>
+    <association fileName="MQFile">
+      <zosbatch>
+        <mq />
+      </zosbatch>
+    </association>
+    <association fileName="NewName">
+      <win>
+        <seqws formFeedOnClose="YES" />
+      </win>
+    </association>
+  </ResourceAssociations>
+  <BindControl name="DvlpBind">
+    <text>TSOLIB ACTIVATE DA('TDSN.SDSNLOAD')
+ALLOC FI(DBRMLIB) SHR DA('DYSP.PD0.EGL.ZOSCICS.DBRMLIB')
+DSN SYSTEM(%HBDB%)
+BIND PACKAGE(FIRSTACT)-
+     MEMBER(%EZEMBR%) -
+     ACT(REP) -
+     VALIDATE(RUN) -
+     ISOLATION(CS) -           
+     CURRENTDATA(NO) -         
+     DEGREE(1)                 
+</text>
+  </BindControl>
+  <BindControl name="testBind">
+    <text>TSOLIB ACTIVATE DA('TDSN.SDSNLOAD')
+ALLOC FI(DBRMLIB) SHR DA('TYSP.PD0.EGL.%SYSTEM%.DBRMLIB')
+DSN SYSTEM(%HBDB%)
+BIND PACKAGE(%EZEMBR%)-
+     MEMBER(%EZEMBR%) -
+     ACT(REP) -
+     VALIDATE(RUN) -
+     ISOLATION(CS) -           
+     CURRENTDATA(NO) -         
+     QUALIFIER(%HBQUALIF%) -
+     DEGREE(1)
+
+RUN PROGRAM(DSNTEP2) PLAN(DSNTEP2) -    
+LIB('TDSN.RUNLIB.LOAD')</text>
+  </BindControl>
+  <BuildDescriptor bind="testBindBATCH" buildPlan="YES" checkNumericOverflow="NO" checkType="NONE" clientCodeSet="IBM-1254" commentLevel="1" destHost="10.45.100.170" fillWithNulls="NO" genDataTables="YES" genDirectory="c:\Genout" J2EE="NO" leftAlign="NO" math="COBOL" name="BATCH" prep="YES" projectID="TYSP.PD0.EGL" resourceAssociations="MVSBatch" serverCodeSet="IBM-1026" setFormItemFull="NO" sysCodes="YES" system="ZOSBATCH" targetNLS="ENU" vagCompatibility="YES" validateMixedItems="NO" validateOnlyIfModified="NO" validateSQLStatements="NO" genFormGroup="YES" destPassword="crypto:37020dfba2ca0fff601f30ab6d365853" destUserID="VGGEN" destPort="1234" linkEdit="MQLinkEdit" linkage="LinkageBatch" genHelpFormGroup="YES" genRunFile="NO" decimalSymbol="," separatorSymbol=".">
+    <symbolicParameter name="CCUEXTC">
+      <symbolicValue><![CDATA[CCUOUT]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="CCUEXTP">
+      <symbolicValue><![CDATA[CCUOUT]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="CCUEXTT">
+      <symbolicValue><![CDATA[CCUOUT]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="CCUEXTL">
+      <symbolicValue><![CDATA[CCUOUT]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="CCUEXTB">
+      <symbolicValue><![CDATA[CCUOUT]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="DB2HLQ">
+      <symbolicValue><![CDATA[TDSN]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="MQHLQ">
+      <symbolicValue><![CDATA[TMQM]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="HBDB">
+      <symbolicValue><![CDATA[DBT0]]></symbolicValue>
+    </symbolicParameter>
+    <symbolicParameter name="HBQUALIF">
+      <symbolicValue><![CDATA[AKTAR]]></symbolicValue>
+    </symbolicParameter>
+  </BuildDescriptor>
+  <BindControl name="testBindBATCH">
+    <text>TSOLIB ACTIVATE DA('TDSN.SDSNLOAD')
+ALLOC FI(DBRMLIB) SHR DA('TYSP.PD0.EGL.%SYSTEM%.DBRMLIB')
+DSN SYSTEM(%HBDB%)
+BIND PACKAGE(%EZEMBR%)-
+     MEMBER(%EZEMBR%) -
+     ACT(REP) -
+     VALIDATE(RUN) -
+     ISOLATION(CS) -           
+     CURRENTDATA(NO) -         
+     QUALIFIER(%HBQUALIF%) -
+     DEGREE(1)
+     
+RUN PROGRAM(DSNTEP2) PLAN(DSNTEP2) -    
+LIB('TDSN.RUNLIB.LOAD')</text>
+  </BindControl>
+  <BuildDescriptor name="DEBUG" sqlValidationConnectionURL="jdbc:db2://tx41:441/DB2TESTT:retrieveMessagesFromServerOnGetMessage=true;emulateParameterMetaDataForZCalls=1;" sqlDB="jdbc:db2://tx41:441/DB2TESTT:retrieveMessagesFromServerOnGetMessage=true;emulateParameterMetaDataForZCalls=1;" sqlID="vggen" sqlJDBCDriverClass="com.ibm.db2.jcc.DB2Driver" sqlPassword="crypto:37020dfba2ca0fff601f30ab6d365853" dbms="DB2" sqlSchema="AKTAR" system="WIN" vagCompatibility="YES" linkage="TestDebugLinkage">
+  </BuildDescriptor>
+  <LinkageOptions name="TestDebugLinkage">
+    <callLink>
+      <remoteCall pgmName="*" conversionTable="ELACNENU" ctgLocation="10.45.102.160" ctgPort="2006" location="CICSTT13" parmForm="COMMDATA" remoteComType="CICSECI" remotePgmType="EGL" luwControl="SERVER" serverID="CPMI" />
+    </callLink>
+  </LinkageOptions>
+  <LinkEdit name="MQLinkEdit">
+    <description><![CDATA[Bazı batchlerden MQ functionlarına yapılan direk çağrılar için kullanılmak üzere oluşturuldu.
+Örnek : BKBU189]]></description>
+    <text> INCLUDE OBJLIB(%EZEMBR%)
+ CHANGE ELAAPPL(%EZEMBR%)
+ INCLUDE SELALMD(ELARMAIN)
+ INCLUDE SELALMD(ELARSINT)
+ INCLUDE SYSLIB(DSNELI)
+ INCLUDE CSQSTUB(CSQBSTUB)
+ ENTRY ELARMAIN
+ NAME %EZEMBR%(R)</text>
+  </LinkEdit>
+</EGL>
