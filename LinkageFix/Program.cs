@@ -20,24 +20,48 @@ namespace LinkageFix
 
         static int lineNumber = 0;
         static string line;
+        static int duplicateLines;
 
         static List<string> lineList = new List<string>();
         static List<string> repairedLineList = new List<string>();
         static string pgmName;
-        static string luwControl;
-        static string linkType;
         static string _pgmName;
-        static string _luwControl;
-        static string _linkType;
+        static string applName;
+        static string _applName;
+        static string str;
+
+
 
 
         static void Main(string[] args)
         {
             Console.WriteLine("LinkageFix Calıstırıldı");
 
+            Console.WriteLine("EglLinkage kayitlari duzletiliyor");
 
-            EglLinkageFixer();
-            Console.WriteLine(line);
+            pgmName = "*";
+            _pgmName = pgmName.Split('*')[0];
+
+            //if (pgmName.Contains("*") && (pgmName.Split('*')[0].Length <= _pgmName.Length))
+            //{
+            //    if (_pgmName.Substring(0, pgmName.Split('*')[0].Length).Contains(pgmName.Split('*')[0]))
+            //    {
+
+            //    }
+            //}
+            //bool isContains = _pgmName.Substring(0, pgmName.Split('*')[0].Length).Contains(pgmName.Split('*')[0]);
+            LinkageFixer(eglLinkagePath);
+            Console.WriteLine("GUI kayitlari duzletiliyor");
+            LinkageFixer(gui2PrdPath);
+            Console.WriteLine("MVS kayitlari duzletiliyor");
+            LinkageFixer(mvs2PrdPath);
+            Console.WriteLine("TEST kayitlari duzletiliyor");
+            LinkageFixer(tst2ProdPath);
+            Console.WriteLine("Egl WEB Linkage kayitlari duzletiliyor");
+            LinkageFixer(webEglLinkage);
+
+            Console.ReadLine();
+
         }
 
         static List<string> FileToList(string filePath)
@@ -87,95 +111,79 @@ namespace LinkageFix
             }
 
         }
-        static void EglLinkageFixer()
+        static void LinkageFixer(string filePath)
         {
-
-
+            Console.WriteLine("------Mukerrer Kayıtlar-----");
             lineList.Clear();
-            lineList = FileToList(eglLinkagePath);
+            lineList = FileToList(filePath);
             for (lineNumber = 0; lineNumber < lineList.Count; lineNumber++)
             {
                 pgmName = "";
-                luwControl = "";
-                linkType = "";
 
-                if (lineList[lineNumber].Contains("PGMNAME"))
+                if (lineList[lineNumber].Contains("PGMNAME") || lineList[lineNumber].Contains("APPLNAME"))
                 {
-                   // repairedLineList.Add()
-                    pgmName = lineList[lineNumber].Split(new string[] { "PGMNAME=\"" }, StringSplitOptions.None)[1].Split('\"')[0].Trim();
 
-                    if (lineList[lineNumber].Contains("LUWCONTROL"))
+                    if (lineList[lineNumber].Contains("PGMNAME"))
                     {
-                        luwControl = lineList[lineNumber].Split(new string[] { "LUWCONTROL=\"" }, StringSplitOptions.None)[1].Split('\"')[0].Trim();
+                        pgmName = lineList[lineNumber].Split(new string[] { "PGMNAME=\"" }, StringSplitOptions.None)[1].Split('\"')[0].Trim();
                     }
-                    if (lineList[lineNumber].Contains("LINKTYPE"))
+                    else if (lineList[lineNumber].Contains("APPLNAME"))
                     {
-                        linkType = lineList[lineNumber].Split(new string[] { "LINKTYPE=\"" }, StringSplitOptions.None)[1].Split('\"')[0].Trim();
+                        pgmName = lineList[lineNumber].Split(new string[] { "APPLNAME=" }, StringSplitOptions.None)[1].Split(' ')[0].Trim();
                     }
+
 
                     for (int j = lineNumber + 1; j < lineList.Count; j++) // bir sonraki satirdan itibaren baslayarak diger satirlari tek tek 
                     {
                         _pgmName = "";
-                        _luwControl = "";
-                        _linkType = "";
-                        if (lineList[j].Contains("PGMNAME"))
+
+                        if (lineList[j].Contains("PGMNAME") || lineList[lineNumber].Contains("APPLNAME"))
                         {
-
-                            _pgmName = lineList[j].Split(new string[] { "PGMNAME=\"" }, StringSplitOptions.None)[1].Split('\"')[0].Trim();
-                            if (lineList[j].Contains("LUWCONTROL"))
+                            if (lineList[j].Contains("PGMNAME"))
                             {
-                                _luwControl = lineList[j].Split(new string[] { "LUWCONTROL=\"" }, StringSplitOptions.None)[1].Split('\"')[0].Trim();
+                                _pgmName = lineList[j].Split(new string[] { "PGMNAME=\"" }, StringSplitOptions.None)[1].Split('\"')[0].Trim();
                             }
-                            if (lineList[j].Contains("LINKTYPE"))
+                            else if (lineList[j].Contains("APPLNAME"))
                             {
-                                _linkType = lineList[j].Split(new string[] { "LINKTYPE=\"" }, StringSplitOptions.None)[1].Split('\"')[0].Trim();
+                                _pgmName = lineList[j].Split(new string[] { "APPLNAME=" }, StringSplitOptions.None)[1].Split(' ')[0].Trim();
                             }
-
-                            // onceki satirdaki pgmname'in yildiza kadar olan kismi sonraki satirdaki pgmName'in ilk karakterinden itibaren iceriliyorsa, iceren satir silinir
-                            // 1.satir pgmName= RMQ*   2.satir _pmgName= RMQDGT , RMQ*
-                            //if (_pgmName.Substring(0).Contains(pgmName.Split('*')[0]))
-                            //{
-                            //    if ((_pgmName != pgmName))
-                            //    {
-                            //        lineList.RemoveAt(j);
-                            //    }
-                            //    else if ((_luwControl == luwControl))
-                            //    {
-                            //        lineList.RemoveAt(j);
-                            //    }
-                            //    else if ((_pgmName == pgmName) && !string.IsNullOrEmpty(linkType) && !string.IsNullOrEmpty(_linkType) && (linkType == _linkType))
-                            //    {
-                            //        lineList.RemoveAt(j);
-                            //    }
-                            //}
 
                             if ((_pgmName == pgmName))
                             {
-                                if ((_luwControl == luwControl))
-                                {
-                                    lineList.RemoveAt(j);
-                                }
-                                else if ((_pgmName == pgmName) && !string.IsNullOrEmpty(linkType) && !string.IsNullOrEmpty(_linkType) && (linkType == _linkType))
-                                {
-                                    lineList.RemoveAt(j);
-                                }
-                            }
-                            else if (_pgmName.Substring(0).Contains(pgmName.Split('*')[0]))
-                            {
+                                Console.WriteLine(lineList[j]);
                                 lineList.RemoveAt(j);
+                                j--;
+                                duplicateLines++;
+                            }
+                            else if (pgmName.Contains("*") && (pgmName.Split('*')[0].Length <= _pgmName.Length))
+                            {
+                                if (_pgmName.Substring(0, pgmName.Split('*')[0].Length).Contains(pgmName.Split('*')[0]))
+                                {
+                                    Console.WriteLine(lineList[j]);
+                                    duplicateLines++;
+                                    lineList.RemoveAt(j);
+                                    j--;
+                                }
                             }
                         }
                     }
+
+
                 }
+
             }
-            ListToFile(lineList, eglLinkagePath);
+            Console.WriteLine("İlgili kayitlar icin duzeltme tamamlandi");
+            Console.WriteLine("Toplam Tekrar Eden Kayıt: " + duplicateLines);
+            ListToFile(lineList, filePath);
         }
     }
-
-
-
-
 }
+
+
+
+
+
+
 
 
 
