@@ -64,6 +64,29 @@ namespace LinkageFix
             return tmpList;
         }
 
+        static void ListToFile(List<string> ls, string filePath)
+        {
+
+            try
+            {
+
+                StreamWriter file = new StreamWriter(filePath + "_new");
+                for (int i = 0; i < ls.Count; i++)
+                {
+                    file.WriteLine(ls[i]);
+
+                }
+                file.Close();
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("EglLinkage dosyasi satirları okunurken exception meydana geldi: " + ex.Message);
+
+            }
+
+        }
         static void EglLinkageFixer()
         {
 
@@ -78,6 +101,7 @@ namespace LinkageFix
 
                 if (lineList[lineNumber].Contains("PGMNAME"))
                 {
+                   // repairedLineList.Add()
                     pgmName = lineList[lineNumber].Split(new string[] { "PGMNAME=\"" }, StringSplitOptions.None)[1].Split('\"')[0].Trim();
 
                     if (lineList[lineNumber].Contains("LUWCONTROL"))
@@ -89,13 +113,14 @@ namespace LinkageFix
                         linkType = lineList[lineNumber].Split(new string[] { "LINKTYPE=\"" }, StringSplitOptions.None)[1].Split('\"')[0].Trim();
                     }
 
-                    for (int j = lineNumber + 1; j < lineList.Count; j++)
+                    for (int j = lineNumber + 1; j < lineList.Count; j++) // bir sonraki satirdan itibaren baslayarak diger satirlari tek tek 
                     {
                         _pgmName = "";
                         _luwControl = "";
                         _linkType = "";
                         if (lineList[j].Contains("PGMNAME"))
                         {
+
                             _pgmName = lineList[j].Split(new string[] { "PGMNAME=\"" }, StringSplitOptions.None)[1].Split('\"')[0].Trim();
                             if (lineList[j].Contains("LUWCONTROL"))
                             {
@@ -108,13 +133,25 @@ namespace LinkageFix
 
                             // onceki satirdaki pgmname'in yildiza kadar olan kismi sonraki satirdaki pgmName'in ilk karakterinden itibaren iceriliyorsa, iceren satir silinir
                             // 1.satir pgmName= RMQ*   2.satir _pmgName= RMQDGT , RMQ*
-                            if (_pgmName.Substring(0).Contains(pgmName.Split('*')[0]))
+                            //if (_pgmName.Substring(0).Contains(pgmName.Split('*')[0]))
+                            //{
+                            //    if ((_pgmName != pgmName))
+                            //    {
+                            //        lineList.RemoveAt(j);
+                            //    }
+                            //    else if ((_luwControl == luwControl))
+                            //    {
+                            //        lineList.RemoveAt(j);
+                            //    }
+                            //    else if ((_pgmName == pgmName) && !string.IsNullOrEmpty(linkType) && !string.IsNullOrEmpty(_linkType) && (linkType == _linkType))
+                            //    {
+                            //        lineList.RemoveAt(j);
+                            //    }
+                            //}
+
+                            if ((_pgmName == pgmName))
                             {
-                                if ((_pgmName != pgmName))
-                                {
-                                    lineList.RemoveAt(j);
-                                }
-                                else if ((_luwControl == luwControl))
+                                if ((_luwControl == luwControl))
                                 {
                                     lineList.RemoveAt(j);
                                 }
@@ -122,12 +159,16 @@ namespace LinkageFix
                                 {
                                     lineList.RemoveAt(j);
                                 }
-                            }               
+                            }
+                            else if (_pgmName.Substring(0).Contains(pgmName.Split('*')[0]))
+                            {
+                                lineList.RemoveAt(j);
+                            }
                         }
                     }
                 }
             }
-
+            ListToFile(lineList, eglLinkagePath);
         }
     }
 
